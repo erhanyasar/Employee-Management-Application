@@ -1,3 +1,7 @@
+# Employee Management Application (EMA)
+
+To see this project up and running, visit [Vercel](https://employee-management-application-erhanyasar.vercel.app/).
+
 # LitElement JavaScript starter
 
 This project includes a sample component using LitElement with JavaScript.

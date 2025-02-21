@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMA | ING HUBS</title>
+    <link rel="shortcut icon" href="https://cdn.radancy.eu/company/2618/img/favicon/favicon.ico" type="image/.ico">
+    <link rel="stylesheet" href="../../docs.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Roboto+Mono">
+    <link href="../../prism-okaidia.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e6e873bdc8.js" crossorigin="anonymous"></script>
+    <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/lit/polyfill-support.js"></script>
+    <script type="module" src="../../my-element.bundled.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="https://careers.ing.com/en/ing-hubs" target="_blank" rel="noopener noreferrer">
+        <img width=100 height=100 src="../../ing-logo.svg" alt="ING Logo" class="ing-logo" />
+      </a>
+      <h1>EMA</h1>
+      <i id="openLogoutModal" class="fa-solid fa-right-from-bracket logout"></i>
+    </header>
+    
+    <nav>
+      <a href="../">Home</a>
+      <a href="">Employees</a>
+    </nav>
+    <div id="main-wrapper">
+      <main>
+        <h1>Employees</h1>
+        <div id="openNewEmployeeModal" class="add-new-employee">
+          <i class="fa-solid fa-plus"></i>
+          Add New Employee
+        </div>
+        <section class="examples">
+          <nav class="collection">
+            <ul>
+              <li class="">
+                <a href="../">Display as a Table</a>
+              </li>
+              <li class="selected">
+                <a href="">Display as a List</a>
+              </li>
+            </ul>
+          </nav>
+
+          <ul id="employeesList"></ul>
+
+        </section>
+      </main>
+    </div>
+
+    <div id="logoutModal" class="modal">
+      <div class="modal-content small-modal">
+        <span class="closeLogoutModal">&times;</span>
+        <h2 class="ing"><b>Are you sure?</b></h2>
+        <p>* This action is just simulation for a complementary UI</p>
+      </div>
+    </div>
+
+    <div id="addNewEmployeeModal" class="modal">
+      <div class="modal-content lg-modal-content">
+        <span class="closeAddNewEmployeeModal">&times;</span>
+        <h2 class="ing"><b>Add New Employee</b></h2>
+        <input type="text" placeholder="First Name" id="newEmployeeName" defaultvalue="" />
+        <div class="btn-group-horizontal">
+          <button class="logout-cancel-button hr-btn">Cancel</button>
+          <button class="logout-proceed-button hr-btn" onclick="handleAddNewEmployee()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="editEmployeeModal" class="modal">
+      <div class="modal-content small-modal">
+        <span class="closeEditEmployeeModal">&times;</span>
+        <h2 class="ing"><b>Edit Employee</b></h2>
+        <p></p>
+        <div class="btn-group-vertical">
+          <button class="logout-cancel-button hr-btn">Cancel</button>
+          <button class="logout-proceed-button hr-btn">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteEmployeeModal" class="modal">
+      <div class="modal-content small-modal">
+        <span class="closeDeleteEmployeeModal">&times;</span>
+        <h2 class="ing"><b>Are you sure?</b></h2>
+        <p>Selected user will be deleted.</p>
+        <div class="btn-group-vertical">
+          <button class="logout-proceed-button">Proceed</button>
+          <button class="logout-cancel-button">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+    <footer></footer>
+
+    <script>
+      // Mocks Employees and employee count instead of a DB for now
+      const EMPLOYEES= [
+        {
+          firstName: "Ahmet",
+          lastName: "Sourtimes",
+          dateOfEmployment: "23/09/2022",
+          dateOfBirth: "23/09/2022",
+          phone: "+905321234567",
+          email: "ahmet@sourtimes.org",
+          department: "Analytics",
+          positions: "Junior",
+        }
+      ],
+        employeeCount = 19,
+        employeesList = document.getElementById('employeesList'),
+        employees = Array(employeeCount).fill(null).map((item, index) => ({
+          id: index,
+          ...EMPLOYEES[0]
+        })),
+        listHeader = `
+          <h6 class="ing">
+            First Name | Last Name | Date of Employment | Date of Birth | Phone | Email | Department | Positions | Actions
+          </h6>
+        `;
+
+      function handleLogout() {
+        alert("It's just a complementary icon");
+      }
+
+      function handleAddNewEmployee() {
+        const inputElement = document.getElementById("newEmployeeName"),
+          employeesList = document.getElementById('employeesList');
+        
+        employeesList.insertAdjacentHTML("beforeend", `<li id="th-list-element">${inputElement.value}</li>`);
+      }
+
+      function handleEditEmployee(index) {
+        const editEmployeeModal = document.getElementById("editEmployeeModal"),
+          openEditEmployeeModalBtn = document.getElementById("openEditEmployeeModal"),
+          closeEditNewEmployeeModalBtn = document.querySelector(".closeEditEmployeeModal");
+      }
+
+      function handleDeleteEmployee(index) {
+        if(confirm(`Are you sure deleting the record id=${index}?`)) {
+          const employeesList = document.getElementById('employeesList'),
+            employeeToRemove = document.getElementById(`${index}th-list-element`);
+
+          employeesList.removeChild(employeeToRemove);
+        }
+      }
+
+      employeesList.innerHTML = listHeader + employees.map(employee => (
+        `<li id="${employee.id}th-list-element">
+          ${employee.id} |
+          ${employee.firstName} |
+          ${employee.lastName} |
+          ${employee.dateOfEmployment} |
+          ${employee.dateOfBirth} |
+          ${employee.phone} |
+          ${employee.email} |
+          ${employee.department} |
+          ${employee.positions} |
+          <i class="fa-solid fa-pen-to-square ing" id="openEditEmployeeModal" onclick="handleEditEmployee(${employee.id})"></i>
+          <i class="fa-solid fa-trash ing" id="openDeleteEmployeeModal" onclick="handleDeleteEmployee(${employee.id})"></i>
+        </li>`
+      )).join("");
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const logoutModal = document.getElementById("logoutModal"),
+          openLogoutModalBtn = document.getElementById("openLogoutModal"),
+          closeLogoutModalBtn = document.querySelector(".closeLogoutModal");
+
+        const addNewEmployeeModal = document.getElementById("addNewEmployeeModal"),
+          openNewEmployeeModalBtn = document.getElementById("openNewEmployeeModal"),
+          closeAddNewEmployeeModalBtn = document.querySelector(".closeAddNewEmployeeModal");
+
+        openLogoutModalBtn.addEventListener("click", function () {
+          logoutModal.style.display = "block";
+        });
+        openNewEmployeeModalBtn.addEventListener("click", function () {
+          addNewEmployeeModal.style.display = "block";
+        });
+
+        closeLogoutModalBtn.addEventListener("click", function () {
+          logoutModal.style.display = "none";
+        });
+        closeAddNewEmployeeModalBtn.addEventListener("click", function () {
+          addNewEmployeeModal.style.display = "none";
+        });
+
+        window.addEventListener("click", function (event) {
+          if (event.target === logoutModal)
+            logoutModal.style.display = "none";
+        });
+        window.addEventListener("click", function (event) {
+          if (event.target === addNewEmployeeModal)
+            addNewEmployeeModal.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

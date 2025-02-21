@@ -30,25 +30,27 @@ a:visited {
 header {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  height: 360px;
+  justify-content: space-between;
+  height: 5rem;
   margin: 0;
-  background: linear-gradient(0deg, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%);
-  color: white;
+  border-bottom: .25rem solid #fc6c0c;
+  color: #fc6c0c;
+  padding: 1rem
 }
 
 footer {
   width: 100%;
-  min-height: 120px;
-  background: gray;
+  height: .25rem;
+  background: #fc6c0c;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 12px;
-  margin-top: 64px;
+  padding: 2px;
+  margin-top: 2rem;
+  font-size: 10px;
 }
 
 h1 {
@@ -59,7 +61,6 @@ h1 {
 h2 {
   font-size: 1.6em;
   font-weight: 300;
-  margin: 64px 0 12px;
 }
 
 h3 {
@@ -115,6 +116,7 @@ nav.collection > ul > li {
 
 nav.collection > ul > li.selected {
   font-weight: 600;
+  color: #fc6c0c;
 }
 
 nav.collection a {
@@ -152,12 +154,172 @@ table {
   border-collapse: collapse;
 }
 th {
+  color: #fc6c0c;
   font-weight: 600;
+  font-size: 12px;
 }
 
 td, th {
   border: solid 1px #aaa;
   padding: 4px;
   text-align: left;
-  vertical-align: top;
+  vertical-align: center;
+  font-size: 14px;
+}
+
+hr {
+  margin: 2.5rem 0;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.selectbox-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+#proceed-button {
+  background-color: #fc6c0c;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  padding: .5rem;
+}
+
+li {
+  font-size: 12px;
+}
+
+.ing {
+  color: #fc6c0c
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: space-around;
+}
+
+#employeesList {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 15;
+}
+
+.add-new-employee {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #fc6c0c;
+  font-size: 12px;
+  margin-bottom: 1rem;
+  gap: 5px;
+}
+
+.add-new-employee:hover {
+  cursor: pointer;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
+.ing-logo:hover {
+  cursor: pointer;
+}
+
+.btn-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.btn-group-horizontal {
+  flex-direction: row;
+}
+
+.hr-btn {
+  min-width: 10rem;
+}
+
+.logout-proceed-button {
+  background-color: #fc6c0c;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: .5rem;
+}
+
+.logout-proceed-button:hover {
+  background-color: grey;
+  color: black;
+  border-radius: 5px;
+  border: none;
+  padding: .5rem;
+}
+
+.logout-cancel-button {
+  background-color: white;
+  border-radius: 5px;
+  border: black 1px solid;
+  padding: .5rem;
+}
+
+.logout-cancel-button:hover {
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  border: white 1px solid;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    margin: 15% auto;
+    width: 25%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.sm-modal-content {
+    width: 25%;
+}
+
+.lg-modal-content {
+    width: 50%;
+}
+
+.close,
+.closeLogoutModal,
+.closeAddNewEmployeeModal,
+.closeEditEmployeeModal,
+.closeDeleteEmployeeModal {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.closeLogoutModal:hover,
+.closeAddNewEmployeeModal:hover {
+    color: #fc6c0c;;
 }

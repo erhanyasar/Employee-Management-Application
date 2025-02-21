@@ -1,0 +1,160 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMA | ING HUBS</title>
+    <link rel="shortcut icon" href="https://cdn.radancy.eu/company/2618/img/favicon/favicon.ico" type="image/.ico">
+    <link rel="stylesheet" href="../docs.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Roboto+Mono">
+    <link href="../prism-okaidia.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e6e873bdc8.js" crossorigin="anonymous"></script>
+    <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/lit/polyfill-support.js"></script>
+    <script type="module" src="../my-element.bundled.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="https://careers.ing.com/en/ing-hubs" target="_blank" rel="noopener noreferrer">
+        <img width=100 height=100 src="../ing-logo.svg" alt="ING Logo" class="ing-logo" />
+      </a>
+      <h1>EMA</h1>
+      <i id="openLogoutModal" class="fa-solid fa-right-from-bracket logout"></i>
+    </header>
+    
+    <nav>
+      <a href="../">Home</a>
+      <a href="">Employees</a>
+    </nav>
+
+    <div id="main-wrapper">
+      <main>
+        <h1>Employees</h1>
+        <div class="add-new-employee" onclick="handleAddNewEmployee()">
+          <i class="fa-solid fa-plus"></i>
+          Add New Employee
+        </div>
+        <section class="examples">
+          <nav class="collection">
+            <ul>
+              <li class="selected">
+                <a href="">Display as a Table</a>
+              </li> 
+              <li class="">
+                <a href="employee-list/">Display as a List</a>
+              </li>    
+            </ul>
+          </nav>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Date of Employment</th>
+                  <th>Date of Birth</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Positions</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="logoutModal" class="modal">
+      <div class="modal-content small-modal">
+        <span class="close">&times;</span>
+        <h2 class="ing"><b>Are you sure to log out?</b></h2>
+        <p>* This action is just simulation for a complementary UI</p>
+      </div>
+    </div>
+
+    <footer></footer>
+
+    <script>
+      // Mocks Employees and employee count instead of a DB for now
+      const EMPLOYEES= [
+        {
+          firstName: "Ahmet",
+          lastName: "Sourtimes",
+          dateOfEmployment: "23/09/2022",
+          dateOfBirth: "23/09/2022",
+          phone: "+905321234567",
+          email: "ahmet@sourtimes.org",
+          department: "Analytics",
+          positions: "Junior",
+        }
+      ],
+        employeeCount = 19,
+        tableBody = document.getElementById('table-body'),
+        employees = Array(employeeCount).fill(null).map((item, index) => ({
+          id: index,
+          ...EMPLOYEES[0]
+        }));
+
+      function handleLogout() {
+        alert("It's just a complementary icon");
+      }
+
+      function handleAddNewEmployee() {}
+
+      function handleEditEmployee(index) {}
+
+      function handleDeleteEmployee(index) {
+        if(confirm(`Are you sure deleting the record id=${index}?`)) {
+          const employeesList = document.getElementById('table-body'),
+            employeeToRemove = document.getElementById(`${index}th-table-element`);
+
+          employeesList.removeChild(employeeToRemove);
+        }
+      }
+
+      tableBody.innerHTML = employees.map(employee => (
+        `<tr id="${employee.id}th-table-element">
+          <td>${employee.id}</td>
+          <td>${employee.firstName}</td>
+          <td>${employee.lastName}</td>
+          <td>${employee.dateOfEmployment}</td>
+          <td>${employee.dateOfBirth}</td>
+          <td>${employee.phone}</td>
+          <td>${employee.email}</td>
+          <td>${employee.department}</td>
+          <td>${employee.positions}</td>
+          <td>
+            <div class="actions-cell">
+              <i class="fa-solid fa-pen-to-square ing" onclick="handleEditEmployee(${employee.id})"></i>
+              <i class="fa-solid fa-trash ing" onclick="handleDeleteEmployee(${employee.id})"></i>
+            </div>
+          </td>
+        </tr>`
+      )).join("");
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const logoutModal = document.getElementById("logoutModal"),
+          openModalBtn = document.getElementById("openLogoutModal"),
+          closeModalBtn = document.querySelector(".close");
+
+        openModalBtn.addEventListener("click", function () {
+          logoutModal.style.display = "block";
+        });
+
+        closeModalBtn.addEventListener("click", function () {
+          logoutModal.style.display = "none";
+        });
+
+        window.addEventListener("click", function (event) {
+          if (event.target === logoutModal)
+            logoutModal.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>
